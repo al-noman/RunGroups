@@ -29,6 +29,11 @@ public class ClubRepository : IClubRepository
         return await _context.Clubs.Include(cl => cl.Address).FirstOrDefaultAsync(cl => cl.Id == id);
     }
 
+    public async Task<Club?> GetByIdNoTrackingAsync(int id)
+    {
+        return await _context.Clubs.Include(cl => cl.Address).AsNoTracking().FirstOrDefaultAsync(cl => cl.Id == id);
+    }
+
     public bool Add(Club club)
     {
         _context.Add(club);

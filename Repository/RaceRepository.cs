@@ -21,12 +21,24 @@ public class RaceRepository : IRaceRepository
 
     public async Task<IEnumerable<Race>> GetRacesByCity(string city)
     {
-        return await _context.Races.Where(rc => rc.Address.City == city).ToListAsync();
+        return await _context.Races
+            .Where(rc => rc.Address.City == city)
+            .ToListAsync();
     }
 
-    public async Task<Race?> GetRaceById(int id)
+    public async Task<Race?> GetRaceByIdAsync(int id)
     {
-        return await _context.Races.Include(rc => rc.Address).FirstOrDefaultAsync(rc => rc.Id == id);
+        return await _context.Races
+            .Include(rc => rc.Address)
+            .FirstOrDefaultAsync(rc => rc.Id == id);
+    }
+
+    public async Task<Race?> GetRaceByIdNoTrackingAsync(int id)
+    {
+        return await _context.Races
+            .Include(rc => rc.Address)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(rc => rc.Id == id);
     }
 
     public bool Add(Race race)
