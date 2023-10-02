@@ -124,4 +124,18 @@ public class RaceController : Controller
             Address = editRaceDto.Address
         };
     }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<IActionResult> DeleteConfirm(int id)
+    {
+        var race = await _repository.GetRaceByIdAsync(id);
+        if (race == null)
+        {
+            var errorModel = new ErrorViewModel { RequestId = id.ToString() };
+            return View("Error", errorModel);
+        }
+
+        _repository.Delete(race);
+        return RedirectToAction("Index");
+    }
 }

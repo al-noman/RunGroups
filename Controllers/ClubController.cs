@@ -122,4 +122,18 @@ public class ClubController : Controller
             }
         };
     }
+
+    [HttpPost, ActionName("Delete")]
+    public async Task<IActionResult> DeleteConfirm(int id)
+    {
+        var club = await _repository.GetByIdAsync(id);
+        if (club == null)
+        {
+            var errorModel = new ErrorViewModel { RequestId = id.ToString() };
+            return View("Error", errorModel);
+        }
+
+        _repository.Delete(club);
+        return RedirectToAction("Index");
+    }
 }

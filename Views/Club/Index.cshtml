@@ -21,6 +21,31 @@
                   <div class="btn-group">
                     <a asp-controller="Club" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View</a>
                     <a asp-controller="Club" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteClubModal-@item.Id">
+                      Delete
+                    </button>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteClubModal-@item.Id" tabindex="-1" aria-labelledby="deleteClubModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="deleteClubModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            Are you sure you want to delete @item.Title
+                          </div>
+                          <form method="post" asp-action="Delete" asp-route-id="@item.Id">
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-danger">Yes delete</button>
+                            </div>  
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    
                   </div>
                   <small class="text-body-secondary">@item.ClubCategory</small>
                 </div>
