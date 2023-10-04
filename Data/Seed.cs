@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using RunGroups.Models;
 
 namespace RunGroups.Data
@@ -10,7 +11,7 @@ namespace RunGroups.Data
             {
                 var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
-                context.Database.EnsureCreated();
+                context!.Database.EnsureCreated();
 
                 if (!context.Clubs.Any())
                 {
@@ -109,7 +110,7 @@ namespace RunGroups.Data
             }
         }
 
-        /*public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
@@ -165,6 +166,6 @@ namespace RunGroups.Data
                     await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
                 }
             }
-        }*/
+        }
     }
 }
